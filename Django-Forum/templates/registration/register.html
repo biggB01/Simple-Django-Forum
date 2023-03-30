@@ -1,0 +1,11 @@
+<form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <p>Error.</p>
+    {% endif %}
+
+    {{ form }}
+
+    <input type="submit" value="Register" />
+</form>

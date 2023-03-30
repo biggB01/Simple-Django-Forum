@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h2>Threads</h2>
+{% for thread in thread_list %}
+    <div class="thread">
+        <h4>Forum: {{thread.forum}}</h4>
+        <p>Title: {{thread.title}}</p>
+        <p><a href="{% url 'filtered_post_list' thread.id %}">View Posts</a></p>
+        {% if user.is_authenticated %}
+        <div class="user">
+            <p><a href="{% url 'create_post' thread.id %}">Create Post</a></p>
+            
+
+            <form action="{% url 'delete_thread' thread.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Delete thread">
+            </form>
+            
+
+        </div>
+        
+        {% endif %}
+        <p>--------------------</p>
+    </div>
+{% endfor %}
+{% endblock %}
+
+
+

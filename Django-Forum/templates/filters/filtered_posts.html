@@ -1,0 +1,31 @@
+{% block content %}
+<h1>Forum</h1>
+{% block sidebar %}
+<ul>
+    <li><a href="/">Home</a></li>
+</ul>
+{% endblock %}
+
+
+
+    <h2>Posts</h2>
+    {% for post in post_list %}
+        <div class="post">
+            <p>Thread: {{post.thread}}</p>
+            <p>Body: {{post.body}}</p>
+            <p>Posted on: {{post.created_on}}</p>
+            {% if user.is_authenticated %}
+                <p><a href="{% url 'edit_post' post.thread.id post.id %}">Edit</a></p>
+
+                
+
+                <form action="{% url 'delete_post' post.thread.id post.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete">
+                </form>
+                
+            {% endif %}
+            <p>--------------------</p>
+        </div>
+    {% endfor %}
+{% endblock %}
